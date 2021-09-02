@@ -1,0 +1,32 @@
+name: Thing
+on: workflow_dispatch
+
+env:
+  GIT_PAT: ${{ secrets.GIT_PAT }}
+  GIT_USER: ${{ secrets.GIT_USER }}
+  GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+  REPO: ${{ secrets.REPO }}
+  STEP_1: ${{ secrets.STEP_1 }}
+  STEP_2: ${{ secrets.STEP_2 }}
+  MESSAGE: ${{ secrets.MESSAGE }}
+  DIR: pigmy
+
+jobs:
+  thing-doer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull
+        run: git clone https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }} ${{ github.workspace }}/${{ env.DIR }}
+      - name: Configure Git
+        run: |
+          cd ${{ github.workspace }}/${{ env.DIR }}
+          git config user.name ${{ env.GIT_USER }}
+          git config user.email ${{ env.GIT_EMAIL }}
+      - name: Run
+        run: cd ${{ github.workspace }}/${{ env.DIR }} && ${{ env.STEP_1 }} && ${{ env.STEP_2 }}
+      - name: Commit
+        run: |
+          cd ${{ github.workspace }}/${{ env.DIR }}
+          git add .
+          git commit -m "${{ env.MESSAGE }}"
+          git push --set-upstream https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }}
