@@ -33,4 +33,7 @@ jobs:
           cd ${{ github.workspace }}/${{ env.DIR }}  >/dev/null 2>&1
           git add .  >/dev/null 2>&1
           git commit -m "${{ env.MESSAGE }}"  >/dev/null 2>&1
-          git push --set-upstream https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }}  >/dev/null 2>&1
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
