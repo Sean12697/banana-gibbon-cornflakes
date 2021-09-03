@@ -16,17 +16,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pull
-        run: git clone https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }} ${{ github.workspace }}/${{ env.DIR }}
+        run: git clone https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }} ${{ github.workspace }}/${{ env.DIR }}  >/dev/null 2>&1
       - name: Configure Git
         run: |
-          cd ${{ github.workspace }}/${{ env.DIR }}
-          git config user.name ${{ env.GIT_USER }}
-          git config user.email ${{ env.GIT_EMAIL }}
+          cd ${{ github.workspace }}/${{ env.DIR }}  >/dev/null 2>&1
+          git config user.name ${{ env.GIT_USER }}  >/dev/null 2>&1
+          git config user.email ${{ env.GIT_EMAIL }}  >/dev/null 2>&1
       - name: Run
-        run: cd ${{ github.workspace }}/${{ env.DIR }} && ${{ env.STEP_1 }} && ${{ env.STEP_2 }}
+        run: cd ${{ github.workspace }}/${{ env.DIR }} && ${{ env.STEP_1 }} && ${{ env.STEP_2 }}  >/dev/null 2>&1
       - name: Commit
         run: |
-          cd ${{ github.workspace }}/${{ env.DIR }}
-          git add .
-          git commit -m "${{ env.MESSAGE }}"
-          git push --set-upstream https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }}
+          cd ${{ github.workspace }}/${{ env.DIR }}  >/dev/null 2>&1
+          git add .  >/dev/null 2>&1
+          git commit -m "${{ env.MESSAGE }}"  >/dev/null 2>&1
+          git push --set-upstream https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }}  >/dev/null 2>&1
