@@ -15,12 +15,12 @@ jobs:
   thing-doer:
     runs-on: ubuntu-latest
     steps:
-      - name: x
+      - name: Pull
         uses: actions/checkout@v2
         with:
-          path: 'null'
-      - name: Pull
-        run: git clone https://${{ env.GIT_USER }}:${{ env.GIT_PAT }}@github.com/${{ env.REPO }} ${{ github.workspace }}/${{ env.DIR }} >/dev/null 2>&1
+          repository: ${{ env.REPO }}
+          token: ${{ env.GIT_PAT }}
+          path: ${{ env.DIR }}
       - name: Configure Git
         run: |
           cd ${{ github.workspace }}/${{ env.DIR }}  >/dev/null 2>&1
